@@ -4,108 +4,30 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Конопльов_Курсова_JS</title>
-	<style>
-		body {
-			/* overflow: hidden; */
-		}
-
-		.errorMessage {
-			color: red;
-			font-style: italic;
-		}
-
-		.curseWorkTitle {
-			display: flex;
-			align-items: center;
-		}
-
-		.button {
-			border: 1px solid;
-			border-radius: 100px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 20px;
-			height: 20px;
-			margin-left: 10px;
-			background-color: #e0e0e0;
-			cursor: pointer;
-			font-size: 14px;
-			font-weight: normal;
-		}
-
-		.button:hover {
-			font-weight: bold;
-			border: 2px solid;
-			margin-left: 9px;
-		}
-
-		.popUp {
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 1;
-			display: -webkit-flex;
-			display: -ms-flex;
-			display: none;
-			justify-content: center;
-			-ms-align-items: center;
-			align-items: center;
-			width: 100vw;
-			height: 100vh;
-			background-color: rgba(0, 0, 0, 0.6);
-			overflow-y: auto;
-		}
-
-		.closeButton {
-			position: fixed;
-			top: 10px;
-			right: 10px;
-			width: 40px;
-			height: 40px;
-			font-size: 20px;
-			margin-left: 0;
-		}
-
-		.closeButton:hover {
-			top: 9px;
-			right: 9px;
-		}
-
-		#WonderIslandDescript > .WonderIslandDescript {
-			width: 60%;
-			font-size: 20px;
-			padding: 20px;
-			background-color: #e7e7e7;
-			border-radius: 10px;
-		}
-
-		label {
-			margin-bottom: 10px;
-			display: block;
-		}
-
-		#inputTextArea {
-			font-size: 20px;
-		}
-
-		.dataInput {
-			display: -webkit-flex;
-			display: -ms-flex;
-			display: flex;
-			-webkit-flex-wrap: wrap;
-			-ms-flex-wrap: wrap;
-			flex-wrap: wrap;
-		}
-	</style>
+	<link rel="stylesheet" href="Styles.css">
 </head>
-<body>
-
+<body data-a="10">
+	
 	<h2 class="curseWorkTitle">Курсова Робота: "Дивовижний острів"<div class="button" onclick="switchPopUp('show', getNode('#WonderIslandDescript'))">?</div></h2>
 
 	<div class="popUp" id="WonderIslandDescript">
-		<div class="WonderIslandDescript">Якось на уроці географії Розумник почув про незвичайний острів, що має форму круга: посередині острова височіє скеля, а населення живе у хижах уздовж периметра острова і через прямовисність скелі може пересуватися від хижі до хижі також виключно по периметрі. Для зручності вважатимемо, що периметр острова розбито на кілька однакових частин, які умовно назвемо секторами, і з однієї такої частини в сусідню можна перейти рівно за хвилину. У деяких секторах розташовано по хижі (але не більш ніж одна хижа в секторі). Визначте, за який час можна подолати відстань між парою найвіддаленіших хиж на острові.</div>
+		<div>Якось на уроці географії Розумник почув про незвичайний острів, що має форму круга: посередині острова височіє скеля, а населення живе у хижах уздовж периметра острова і через прямовисність скелі може пересуватися від хижі до хижі також виключно по периметрі. Для зручності вважатимемо, що периметр острова розбито на кілька однакових частин, які умовно назвемо секторами, і з однієї такої частини в сусідню можна перейти рівно за хвилину. У деяких секторах розташовано по хижі (але не більш ніж одна хижа в секторі). Визначте, за який час можна подолати відстань між парою найвіддаленіших хиж на острові.</div>
 		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#WonderIslandDescript'))">X</div>
+	</div>
+	
+	<div class="popUp" id="clockwiseFuncInfo">
+		<div>Формула за якою обчислюється час переміщення  з початкового сектора(s) в кінцевий(e) за годинниковою стрілкою(t-clockwise): кінцевий сектор відняти початковий. t-clockwise = s - e</div>
+		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#clockwiseFuncInfo'))">X</div>
+	</div>
+	
+	<div class="popUp" id="anticlockwiseFuncInfo">
+		<div>Формула за якою обчислюється час переміщення  з початкового сектора(s) в кінцевий(e) проти годинникової стрілки(t-anticlockwise): кількість секторів(a) відняти кінцевий сектор(щоб дізнатись час від кінцевого сектора до початку) і додати початковий сектор. t-anticlockwise = a - s + e</div>
+		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#anticlockwiseFuncInfo'))">X</div>
+	</div>
+	
+	<div class="popUp" id="statisticControls">
+		<div>Натискання лівою кнопкою миші(ЛКМ) по назві колонки сортує колонку від найбільшого значення до найменшого, ЛКМ + SHIFT сортує колонку навпаки - від найменшого значення до найбільшого.</div>
+		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#statisticControls'))">X</div>
 	</div>
 
 	<p>Програма призначена для визначення відстаней між секторами кола у яких знаходяться хижі у хвилинах, так щоб переміститися з одного сектора в інший треба 1 хвилина.</p>
@@ -122,368 +44,25 @@
 
 		<div>
 			<label for="inputTextArea">За допомогою текстового поля</label>
-			<textarea rows="2" cols="20" id="inputTextArea" onchange="inputedData(this); calcInputData()" placeholder="6 3"></textarea>
-		</div>
-		
-		<p class="inputOutStr"></p>
+			<textarea rows="2" cols="20" id="inputTextArea" oninput="inputedData(this); calcInputData()" placeholder="6 3"></textarea>
+		</div>		
 	</div>
-
+	
+	<script src="core.js" charset="utf-8"></script>
+	<script src="inputs.js" charset="utf-8"></script>
+	<script src="html.js" charset="utf-8"></script>
+	<script src="program.js" charset="utf-8"></script>
+	<script src="canvas.js" charset="utf-8"></script> 
+	<script src="statistic.js" charset="utf-8"></script>
 	<script>
-
-		function getNode(node) {
-			return document.querySelector(node)
-		}
+		'use strict'
 		
-		let arr = null, readerLoad = false
-
-		const inputFile = getNode('#inputFile')
-
-		function onInputFile() {
-			const files = inputFile.files,
-						reader = new FileReader()
-
-			reader.readAsText(files[0])
-
-			reader.addEventListener('load', () => {
-				arr = reader.result.split(' ')
-				readerLoad = true
-			})
-		}
-
-		function switchPopUp(type, node) {
-			switch (type) {
-				case 'show':
-					node.style.display = 'flex'
-					break
-				case 'hide':
-					node.style.display = 'none'
-					break
-			}
-		}
-
-		let sectors = null, huts = null
-
-		function createTextElement(node, innerText = '', cls = '') {
-			const tempNode = document.createElement(node)
-
-			cls != 0 ? tempNode.classList.add(cls) : {}
-			innerText != 0 ? tempNode.innerText = innerText : {}
-			
-			return tempNode
-		}
+		firstSettings = '10 5'.split(' ')
+		numberSectors = '1 4 5 7 9'.split(' ')
 		
-		const messages = {
-			lotInputsArguments: createTextElement('p', 'Кількість аргументів більше двох! Оброблені будут перші 2 аргументи', 'errorMessage'),
-			fewInputsArguents: createTextElement('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість аргументів менша двох!', 'errorMessage'),
-			HighLimitSectors: createTextElement('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість секторів більша 500000!', 'errorMessage'),
-			LowLimitSectors: createTextElement('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість секторів менша 2!', 'errorMessage'),
-			HighLimitHuts: createTextElement('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість хижин більша за кількість секторів!', 'errorMessage'),
-			LowLimitHuts: createTextElement('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість хижин менша 2!', 'errorMessage'),
-		}
-
-		function inputedData(thisNode) {
-			arr = thisNode.value.split(' ')
-		}
-			
-		function calcInputData() {
-			
-			sectors = +arr[0]
-			huts = +arr[1]
-			
-			const errors = document.getElementsByClassName('errorMessage')
-			
-			for(let i = errors.length - 1; i >= 0 ; i--) {
-				errors[i].remove()
-			}
-			
-			getNode('.inputOutStr').innerText = ``
-
-			if(getNode('.inputOutStr') === null) createTextElement('p', '', 'inputOutStr')
-			
-			if(arr.length < 2) {
-				document.body.appendChild(messages.fewInputsArguents)
-			}
-			
-			else {
-				
-				if(arr.length > 2) {
-					document.body.appendChild(messages.lotInputsArguments)
-				}
-				
-				if(sectors > 500000) {
-					document.body.appendChild(messages.HighLimitSectors)
-				}
-				
-				else if(sectors < 2) {
-					document.body.appendChild(messages.LowLimitSectors)
-				}
-				
-				else {
-					if(huts > sectors) {
-						document.body.appendChild(messages.HighLimitHuts)
-					}
-					
-					else if(huts < 2) {
-						document.body.appendChild(messages.LowLimitHuts)
-					}
-					
-					else {
-						getNode('.inputOutStr').innerText = `Кількість секторів: ${sectors}, кількість хиж: ${huts}`
-					}
-				}
-			}
-			
-			// if(arr.length < 2) {
-			// 	document.body.appendChild(messages.fewInputsArguents)
-			// }
-			// 
-			// else {
-			// 
-			// 	if(arr.length > 2) {
-			// 		document.body.appendChild(messages.lotInputsArguments)
-			// 	}
-			// 
-			// 	else {
-			// 		const errors = document.getElementsByClassName('errorMessage')
-			// 
-			// 		for(let i = 0; i < errors.length; i++) {
-			// 			errors[i].remove()
-			// 		}
-			// 	}
-			// 
-			// 	sectors = arr[0]
-			// 	huts = arr[1]
-			// 
-			// 	getNode('.inputOutStr').innerText = `Кількість секторів: ${sectors}, кількість хиж: ${huts}`
-			// }
-		}
-
-		// const inputLine1 = '6 3 ', 	//сначала n, потом h, 2 ⩽ h ⩽ n ⩽ 500 000, n количество секторов острова, h количество хиж
-		// 			inputLine2 = '1 3 6 '	//в порядку возростания указаны номера секторов, на которых будут хижины
-		//
-		// let sectors = 0, //количество секторов в курсовой именуется как "n"
-		// 		huts = 0, 	 //количество хижин в курсовой именуется как "h"
-		// 		numbersHuts = []
-		//
-		// let swicher = 0, helper = [], j = 0
-		//
-		// //в этом цикле инпут строка, то есть масив, переводится в числовые значения переменных, масив helper[] сначала собирает из
-		// //фрагмента инпут лайна число, а когда цикл доходит до пробела в инпут лайне, то +helper.join('') - уже полноценное значение
-		// //присваивается переменной
-		//
-		// for(let i = 0; i < inputLine1.length; i++) {
-		//
-		// 	if(inputLine1[i] === ' ' || inputLine1[i] === '\0') {
-		//
-		// 		swicher === 0 ? sectors = +helper.join('') : {}
-		// 		swicher === 1 ? huts = +helper.join('') : {}
-		//
-		// 		helper = []
-		// 		j = 0
-		//
-		// 		swicher++
-		// 	}
-		//
-		// 	if(inputLine1[i] !== ' ') {
-		// 		helper[j] = inputLine1[i]
-		// 		j++
-		// 	}
-		// }
-		//
-		// outStr.innerHTML += `Количество секторов: ${sectors }, количество хижин: ${huts}</br></br>`
-		//
-		// if(sectors > 500000) outStr.innerHTML += '<span class="errorMessage">Количество секторов больше 500 000!</span></br>'
-		//
-		// else if(sectors < 2) outStr.innerHTML += '<span class="errorMessage">Количество секторов меньше 2!</span></br>'
-		//
-		// else if(huts > sectors) outStr.innerHTML += '<span class="errorMessage">Количество хижин больше чем количество секторов!</span></br>'
-		//
-		// else if(huts < 2) outStr.innerHTML += '<span class="errorMessage">Количество хижин меньше 2!</span></br>'
-		//
-		// else {
-		// 	helper = []
-		// 	j = 0
-		//
-		// 	swicher = 0
-		//
-		// 	//тот же самый цикл что и кодом выше, но сдесь выходные значения выводятся в масив numbersHuts[] в строке (*)
-		//
-		// 	for(let i = 0; i < inputLine2.length; i++) {
-		//
-		// 		if(inputLine2[i] === ' ' || inputLine2[i] === '\0') {
-		//
-		// 			numbersHuts[swicher] = +helper.join('') //строка (*)
-		//
-		// 			helper = []
-		// 			j = 0
-		//
-		// 			swicher++
-		// 		}
-		//
-		// 		if(inputLine2[i] !== ' ') {
-		// 			helper[j] = inputLine2[i]
-		// 			j++
-		// 		}
-		// 	}
-		//
-		// 	outStr.innerHTML += 'Номера секторов в которых находятся хижины: '
-		//
-		// 	let errorHutsNumElements = 0
-		//
-		// 	for(let i = 0; i < numbersHuts.length; i++) {
-		//
-		// 		outStr.innerHTML += `${numbersHuts[i]}`
-		//
-    //     // if(numbersHuts[i] < 1) {
-    //     //     outStr.innerHTML += '(номер ниже 1!)'
-    //     //     errorHutsNumElements = 1;
-    //     // }
-    //     // else if(numbersHuts[i] > sectors) {
-    //     //     outStr.innerHTML += '(номер выше количества секторов!)'
-    //     //     errorHutsNumElements = 1;
-    //     // }
-    //     // if(numbersHuts[i] < numbersHuts[i - 1] && i > 0) {
-    //     //     outStr.innerHTML += '(номер ниже предедущего номера!)'
-    //     //     errorHutsNumElements = 1;
-    //     // }
-		//
-    //     if(numbersHuts[i + 1] !== numbersHuts.length) outStr.innerHTML += ','
-		// 	}
-		//
-		// 	// console.log('\0')
-		//
-		// 	//собственно сама програма
-		// 	//перебор дистанций между номерами хижин и выбор дистанции равной или максимально близкой к sectors/2
-		//
-		// 	let maxDistanse = 0
-		//
-		// 	for(let i = numbersHuts.length - 1; i > 0; i--) {
-		// 		for(let k = i - 1; k >= 0; k--) {
-		// 			if(numbersHuts[i] - numbersHuts[k] === sectors/2) {
-		// 				maxDistanse = numbersHuts[i] - numbersHuts[k]
-		// 			}
-		//
-		// 			else if(numbersHuts[i] - numbersHuts[k] >= maxDistanse && numbersHuts[i] - numbersHuts[k] <= sectors/2) {
-		// 				maxDistanse = numbersHuts[i] - numbersHuts[k]
-		// 			}
-		//
-		// 			else if(sectors - numbersHuts[i] + numbersHuts[k] >= maxDistanse && sectors - numbersHuts[i] + numbersHuts[k] <= sectors/2) {
-		// 				maxDistanse = sectors - numbersHuts[i] + numbersHuts[k]
-		// 			}
-		// 		}
-		// 	}
-		//
-		// 	outStr.innerHTML += `${maxDistanse}`
-		// }
+		calcInputData()
+		runProgram()
 	</script>
 
 </body>
 </html>
-
-<!-- #include <stdio.h>
-#include <string.h>
-
-int main() {
-
-    char inputLine1[] = {"6 3"},    //сначала n, потом h, 2 ⩽ h ⩽ n ⩽ 500 000, n количество секторов острова, h количество хиж
-         inputLine2[] = {"1 3 6"};  //в порядку возростания указаны номера секторов, на которых будут хижины
-
-    int sectors = 0, //количество секторов в курсовой именуется как "n"
-			huts = 0, //количество хижин в курсовой именуется как "h"
-			numbersHuts[255] = {};
-
-	int swicher = 0, j = 0;
-	char helper[80] = {};
-
-    //в этом цикле инпут строка, то есть масив, переводится в числовые значения переменных, масив helper[] сначала собирает из
-	//фрагмента инпут лайна число, а когда цикл доходит до пробела в инпут лайне, то atoi(helper) - уже полноценное значение
-	//присваивается переменной
-
-	for(int i = 0; i <= strlen(inputLine1); i++) {
-
-		if(inputLine1[i] == ' ' || inputLine1[i] == '\0') {
-
-		    if(swicher == 0)  sectors = atoi(helper);
-		    else if(swicher == 1) huts = atoi(helper);
-
-		    for(int b = 0; b < strlen(helper); b++) {
- 		    	helper[b] = ' ';
-		    }
-
-			j = 0;
-
-			swicher++;
-		}
-
-		if(inputLine1[i] != ' ') {
-			helper[j] = inputLine1[i];
-			j++;
-		}
-	}
-
-	swicher = 0,
-	j = 0;
-
-	for(int b = 0; b < strlen(helper); b++) {
- 	    helper[b] = '0';
-	}
-
-	printf("%d;%d;%s\n", sectors, huts, helper);
-	printf("---\n");
-
-	//тот же самый цикл что и кодом выше, но сдесь выходные значения выводятся в масив numbersHuts[] в строке (58)
-
-	for(int i = 0; i <= strlen(inputLine2); i++) {
-
-		if(inputLine2[i] == ' ' || inputLine2[i] == '\0') {
-
-		    numbersHuts[swicher] = atoi(helper); //строка (58)
-
-		    for(int b = 0; b < strlen(helper); b++) {
- 		    	helper[b] = 'a';
-		    }
-
-			j = 0;
-
-			swicher++;
-		}
-
-		if(inputLine2[i] != ' ') {
-			helper[j] = inputLine2[i];
-			j++;
-		}
-	}
-
-	int numbersHutsNumElements = 0;
-
-	for(int i = 0; i < sizeof(numbersHuts) / sizeof(numbersHuts[0]); i++) {
-	    if(numbersHuts[i] != 0) {
-	        printf("%d;", numbersHuts[i]);
-	        numbersHutsNumElements++;
-	    }
-	}
-	printf("\n---\n");
-
-// 	//собственно сама програма
-// 	//перебор дистанций между номерами хижин и выбор дистанции равной или максимально близкой к sectors/2
-
-	int maxDistanse = 0;
-
-		for(int i = numbersHutsNumElements - 1; i > 0; i--) {
-			for(int k = i - 1; k >= 0; k--) {
-				if(numbersHuts[i] - numbersHuts[k] == sectors/2) {
-					maxDistanse = numbersHuts[i] - numbersHuts[k];
-				}
-
-				else if(numbersHuts[i] - numbersHuts[k] >= maxDistanse && numbersHuts[i] - numbersHuts[k] <= sectors/2) {
-					maxDistanse = numbersHuts[i] - numbersHuts[k];
-				}
-
-				else if(sectors - numbersHuts[i] + numbersHuts[k] >= maxDistanse && sectors - numbersHuts[i] + numbersHuts[k] <= sectors/2) {
-					maxDistanse = sectors - numbersHuts[i] + numbersHuts[k];
-				}
-			}
-		}
-
-		printf("Время что бы передвигаться между самыми далекими хижинами острова равно %d минутам\n", maxDistanse);
-} -->
