@@ -13,9 +13,7 @@ function runProgram() {
    
    statisticArr = []
    
-   getNode('.programNodesContainer') === null ? {} : getNode('.programNodesContainer').remove()
-   
-   document.body.appendChild(createNode('div', '', 'programNodesContainer'))
+   getNode('.programNodesContainer') === null ? document.body.appendChild(createNode('div', '', 'programNodesContainer')) : getNode('.programNodesContainer').remove()
    
    let itr = 1
    

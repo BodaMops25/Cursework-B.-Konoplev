@@ -19,7 +19,7 @@ function runStatistic() {
    getNode('.programNodesContainer').appendChild(table)
    
    for(let i = 0; i < statisticArr.length; i++) {
-      table.appendChild(createNode('tr', `<td>${statisticArr[i][0]}</td><td>${statisticArr[i][1]}</td><td>${statisticArr[i][2]}</td><td>${statisticArr[i][3]}</td><td>${statisticArr[i][4]}</td>`))
+      table.appendChild(createNode('tr', `<td>${statisticArr[i][0]}</td><td>${statisticArr[i][1]}</td><td>${statisticArr[i][2]}</td><td>${statisticArr[i][3]}</td><td>${statisticArr[i][4]}</td>`, '', ['onmouseover', 'highlightFunc(this)'], ['onmouseout', 'outHighlightFunc(this)']))
    }
 }
 
@@ -47,3 +47,21 @@ function sortFunc(e) {
    
    runStatistic()
 }
+
+// CANVAS SECTORS AND TABLE ROW HIGHLIGHTS
+
+function highlightFunc(node) {
+   node.style.backgroundColor = '#f2f2f2'
+   
+   highlightSector(+node.childNodes[1].innerText)
+   highlightSector(+node.childNodes[2].innerText)
+   
+   console.log(2)
+}
+
+function outHighlightFunc(node) {
+   node.style.backgroundColor = '#ffffff'
+   
+   runCanvas()
+}
+
