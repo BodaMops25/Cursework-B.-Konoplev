@@ -1,28 +1,30 @@
 'use strict'
 
-function degToRad(deg) {
+function degToRad(deg) { // перетворення градусів - 90 градусів в радіани, deg - градуси
    return (deg - 90) * Math.PI / 180
 }
 
-function lineToAngle(argX, argY, angle, distance) {
+function lineToAngle(argX, argY, angle, distance) { // повертає перміщенні координати на деяку відстань на деякий кут
    argX = Math.cos(degToRad(angle)) * distance + argX
    argY = Math.sin(degToRad(angle)) * distance + argY
    
    return [argX, argY]
 }
 
-function runCanvas() {  
+function runCanvas() {  // створення полотна з графікою
    
    // CREATING CANVAS AND CONFIGURING IT
    
    getNode('canvas') === null ? {} : getNode('canvas').remove()
    getNode('.programNodesContainer').prepend(createNode('canvas'))
    
-   const cnvs = getNode('canvas'),
-   cnvsWdth = window.innerWidth * 0.4,
+   const cnvs = getNode('canvas'), // полотно
+   cnvsWdth = window.innerWidth * 0.4, // задання зміній значення ширини сторінки * 0.4
    cnvsSizeScale = 1,
    cnvsScaledWdth = cnvsWdth * cnvsSizeScale,
    ctx = cnvs.getContext('2d')
+   
+   // присвоєння значень полотну
    
    cnvs.width = cnvsScaledWdth
    cnvs.height = cnvsScaledWdth
@@ -34,7 +36,7 @@ function runCanvas() {
    // DRAWING ON CANVAS
    
    ctx.fillStyle = '#2590ff'
-   ctx.fillRect(0, 0, cnvsScaledWdth, cnvsScaledWdth)
+   ctx.fillRect(0, 0, cnvsScaledWdth, cnvsScaledWdth) // малювання прямокутника на все полотно
    
    // CREATING DUBLICATE SECTORS AND PROTECT CANVAS FROM SECTORS OVER 2000
    
@@ -50,18 +52,18 @@ function runCanvas() {
    
    // DRAWING SECTORS
    
-   ctx.moveTo(x, y)
+   ctx.moveTo(x, y) // переміститися в певні координати
    
    for(let i = 0; i < sectorsDub; i++) {
-      ctx.arc(x, y, cnvsScaledWdth / 2.25, degToRad(currentDeg), degToRad(currentDeg + degStep))
-      ctx.lineTo(x,y)
+      ctx.arc(x, y, cnvsScaledWdth / 2.25, degToRad(currentDeg), degToRad(currentDeg + degStep)) // малювати коло
+      ctx.lineTo(x,y) // малювати лінію
       
       currentDeg += degStep
    }
    
-   ctx.fillStyle = '#19bd3d'
-   ctx.fill()
-   ctx.stroke()
+   ctx.fillStyle = '#19bd3d' // колір зафарбовування
+   ctx.fill() // зафарбувати фігуру
+   ctx.stroke() // зафарбувати контур
    
    // DRAWING NUMBERS SECTORS
    
@@ -95,7 +97,7 @@ function runCanvas() {
          ctx.arc(tXY[0], tXY[1], cnvsScaledWdth / 30, 0, Math.PI * 2)
          ctx.fill()
          ctx.stroke()
-         ctx.beginPath()
+         ctx.beginPath() // створення нового шляху(нової фігури)
          
          numSectorsI++
       }
@@ -104,7 +106,7 @@ function runCanvas() {
    }
 }
 
-function highlightSector(sectorNum) {
+function highlightSector(sectorNum) { // підсвічення секторів
    
    const cnvs = getNode('canvas'),
          cnvsWdth = window.innerWidth * 0.4,

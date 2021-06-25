@@ -1,60 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Конопльов_Курсова_JS</title>
-	<link rel="stylesheet" href="Styles.css">
-</head>
-<body width=100px>
+<!DOCTYPE html> <!-- говоримо браузеру що стрінка версії html5 -->
+<html lang="en"> <!-- тег в якому зберігається весь документ -->
+<head> <!-- тег в якому зберігається все те що не буде відображено на сторінкі, рім тегу title -->
+	<meta charset="UTF-8"> <!-- сторінка в кодуванні UTF-8 -->
+	<title>Конопльов_Курсова_JS</title> <!-- назва сторінки -->
+	<link rel="stylesheet" href="Styles.css"> <!-- підключення css стилів -->
+</head> <!-- </назва тегу> це закриття парних тегів -->
+<body width=100px> <!-- тег в якому зберігається весь відображаємий контент сторінки -->
 	
-	<h2 class="curseWorkTitle">Курсова Робота: "Дивовижний острів"<div class="button" onclick="switchPopUp('show', getNode('#WonderIslandDescript'))">?</div></h2>
+	<h2 class="curseWorkTitle">Курсова Робота: "Дивовижний острів"<div class="button" onclick="switchPopUp('show', getNode('#WonderIslandDescript'))">?</div></h2> <!-- створення заголока курсової -->
 
-	<div class="popUp" id="WonderIslandDescript">
+	<div class="popUp" id="WonderIslandDescript"> <!-- створення popup контейнера з текстов всередені й кнопкою закриття цього попапа, пояснення курсової -->
 		<div>Якось на уроці географії Розумник почув про незвичайний острів, що має форму круга: посередині острова височіє скеля, а населення живе у хижах уздовж периметра острова і через прямовисність скелі може пересуватися від хижі до хижі також виключно по периметрі. Для зручності вважатимемо, що периметр острова розбито на кілька однакових частин, які умовно назвемо секторами, і з однієї такої частини в сусідню можна перейти рівно за хвилину. У деяких секторах розташовано по хижі (але не більш ніж одна хижа в секторі). Визначте, за який час можна подолати відстань між парою найвіддаленіших хиж на острові.</div>
-		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#WonderIslandDescript'))">X</div>
+		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#WonderIslandDescript'))">X</div> <!-- кнопа закриття попапа -->
 	</div>
 	
-	<div class="popUp" id="clockwiseFuncInfo">
+	<div class="popUp" id="clockwiseFuncInfo"> <!-- попап формули обчислення відстані за годдиниковою стрілкою-->
 		<div>Формула за якою обчислюється час переміщення  з початкового сектора(s) в кінцевий(e) за годинниковою стрілкою(t-clockwise): кінцевий сектор відняти початковий. t-clockwise = s - e</div>
 		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#clockwiseFuncInfo'))">X</div>
 	</div>
 	
-	<div class="popUp" id="anticlockwiseFuncInfo">
+	<div class="popUp" id="anticlockwiseFuncInfo">  <!-- попап формули обчислення відстані проти годдиникової стрілки-->
 		<div>Формула за якою обчислюється час переміщення  з початкового сектора(s) в кінцевий(e) проти годинникової стрілки(t-anticlockwise): кількість секторів(a) відняти кінцевий сектор(щоб дізнатись час від кінцевого сектора до початку) і додати початковий сектор. t-anticlockwise = a - s + e</div>
 		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#anticlockwiseFuncInfo'))">X</div>
 	</div>
 	
-	<div class="popUp" id="statisticControls">
+	<div class="popUp" id="statisticControls"> <!-- попап керування в таблиці статистики -->
 		<div>Натискання лівою кнопкою миші(ЛКМ) по назві колонки сортує колонку від найбільшого значення до найменшого, ЛКМ + SHIFT сортує колонку навпаки - від найменшого значення до найбільшого.</div>
 		<div class="button closeButton" onclick="switchPopUp('hide', getNode('#statisticControls'))">X</div>
 	</div>
+	
+	<!-- просто текст -->
 
 	<p>Програма призначена для визначення відстаней між секторами кола у яких знаходяться хижі у хвилинах, так щоб переміститися з одного сектора в інший треба 1 хвилина.</p>
 	<p>У вхідних даних програми треба ввести кількість секторів, кількість хиж та номери секторів в яких знаходяться хижі.</p>
 	<p>Правила: n - кількість секторів, h - кількість хиж, 2 ⩽ h ⩽ n ⩽ 500 000. Сектори нумеровано від 1 до n, 1 і n замикають коло і є сусідніми. n і h записуються на першому рядку й розділені пробілом. У другому рядку записуються номери секторів в яких знаходяться хижі в порядку зростання.</p>
 
 	<h3>Введення даних:</h3>
+	
+	<!-- введення даних через файл -->
 
 	<div class="dataInput">
 		<div>
-			<label for="inputFile">За допомогою файлу</label>
-			<input type="file" multiple="true" id="inputFile" onchange="onInputFile(); setTimeout(calcInputData, 10)">
+			<label for="inputFile">За допомогою файлу</label> <!-- назва інпута -->
+			<input type="file" multiple="true" id="inputFile" onchange="onInputFile(); setTimeout(calcInputData, 10)"> <!-- інпута типу файл -->
 		</div>
+		
+		<!-- введення даних через текстове поле -->
 
 		<div>
 			<label for="inputTextArea">За допомогою текстового поля</label>
-			<textarea rows="2" cols="20" id="inputTextArea" oninput="inputedData(this); calcInputData()" placeholder="6 3"></textarea>
+			<textarea rows="2" cols="20" id="inputTextArea" oninput="inputedData(this); calcInputData()" placeholder="6 3"></textarea> <!-- інпута типу текстове поле -->
 		</div>		
 	</div>
 	
-	<script src="core.js" charset="utf-8"></script>
+	<!-- підключення JavaScript скриптів -->
+	
+	<script src="core.js" charset="utf-8"></script> 
 	<script src="inputs.js" charset="utf-8"></script>
 	<script src="html.js" charset="utf-8"></script>
 	<script src="program.js" charset="utf-8"></script>
 	<script src="statistic.js" charset="utf-8"></script>
 	<script src="canvas.js" charset="utf-8"></script>
-	<script>
+	<!-- <script>
 		'use strict'
 		
 		firstSettings = '10 5'.split(' ')
@@ -62,7 +69,7 @@
 		
 		calcInputData()
 		runProgram()
-	</script>
+	</script> -->
 
 </body>
 </html>

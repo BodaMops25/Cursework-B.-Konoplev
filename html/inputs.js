@@ -1,34 +1,36 @@
 'use strict'
 
+//firstSettings - перший рядок вхідних даних, numberSectors - другий рядок вхідних даних, sectors - кількість секторів, huts - кілкість хиж
+
 let firstSettings = null, numberSectors = null, sectors = null, huts = null
 
 // FILE INPUTS
 
-const inputFile = getNode('#inputFile')
+const inputFile = getNode('#inputFile') // присвоєння змінній тега
 
-function onInputFile() {
-  const files = inputFile.files,
-        reader = new FileReader()
+function onInputFile() { // функція зчитування даних з фалу
+  const files = inputFile.files, // files масив файлів які були предані в інпут типу файл
+        reader = new FileReader() // запуск події зчитування даних з файла, це займе якийсь час
 
-  reader.readAsText(files[0])
+  reader.readAsText(files[0]) // зчитування даних з файлу як текст
 
-  reader.addEventListener('load', () => {
+  reader.addEventListener('load', () => { // запуск кода, коли зчитування даних з файлу завершиться
     firstSettings = reader.result.split(' ')  //THIS EVENT FILLS SOME TIME!!! AND NEXT CODE NEED CONTINUE VIE SOME TIME (10MS FIT)
     
-    firstSettings = reader.result.split('\n')[0]
+    firstSettings = reader.result.split('\n')[0] // розділення рядка reader.result на окремі елементи там де стоїть символ \n
     numberSectors = reader.result.split('\n')[1]
     
-    firstSettings = firstSettings.split(' ')
+    firstSettings = firstSettings.split(' ') // розділення елементів масиву по символу ' '
     
-    numberSectors === undefined ? numberSectors = '' : numberSectors = numberSectors.split(' ')
+    numberSectors === undefined ? numberSectors = '' : numberSectors = numberSectors.split(' ') // якщо змінна numberSectors не дорівнює undefined, то вона буде оброблена
     
-    getNode('#inputTextArea').value = reader.result
+    getNode('#inputTextArea').value = reader.result // значення текстового поля для введеня даних стає рівне введеним даним з файлу
   })
 }
 
 // TEXTAREA INPUTS
 
-function inputedData(thisNode) {
+function inputedData(thisNode) { // запис даних з текстового поля
   firstSettings = thisNode.value.split('\n')[0]
   numberSectors = thisNode.value.split('\n')[1]
   
@@ -39,35 +41,35 @@ function inputedData(thisNode) {
 
 // TREATMENT INPUTS VALUES, CHECK FOR TRUE
   
-function calcInputData() {
+function calcInputData() { // перевірка що введені дані коектні
   
-  let fatalError = false
+  let fatalError = false // зміна для фатальних помилок
   
   // REFRESHING
-  
-  getNode('.inputOutStrContainer') === null ? {} : getNode('.inputOutStrContainer').remove()
+
+  getNode('.inputOutStrContainer') === null ? {} : getNode('.inputOutStrContainer').remove() // якщо тег з класом inputOutStrContainer існує то він видаляється з хтмл документу
   getNode('.programNodesContainer') === null ? {} : getNode('.programNodesContainer').remove()
   
   // CREATING LOG CONTAINER
     
-  const inputOutStrContainer = createNode('div', '', 'inputOutStrContainer')
-  document.body.appendChild(inputOutStrContainer)
+  const inputOutStrContainer = createNode('div', '', 'inputOutStrContainer') // тег в який буде виводитись інформація про введені дані
+  document.body.appendChild(inputOutStrContainer) //створення тегу в документі
   
-  sectors = +firstSettings[0]
+  sectors = +firstSettings[0] // присвоєння числового значення змінній, "+"
   huts = +firstSettings[1]
   
   // CHECKS
   
-  if(firstSettings.length < 2) {
-    inputOutStrContainer.appendChild(createNode('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість аргументів менша двох!', 'errorMessage'))
-    fatalError = true
+  if(firstSettings.length < 2) { // якщо кількість аргументів першого рядка(кількість елементів в масиві firstSettings) менше 2 то зпрацює умова
+    inputOutStrContainer.appendChild(createNode('p', 'ФАТАЛЬНА ПОМИЛКА: Кількість аргументів менша двох!', 'errorMessage')) //створення й додавання тегу з повідомленням помилки а контейнер для інформіції про вхідні дані
+    fatalError = true // присвоєння значення
   }
   
   else if(firstSettings.length > 2 && fatalError == false) {
     inputOutStrContainer.appendChild(createNode('p', 'Кількість аргументів більше двох! Оброблені будут перші 2 аргументи', 'errorMessage'))
   }
   
-  if(isNaN(sectors) && fatalError === false) {
+  if(isNaN(sectors) && fatalError === false) { // перевірка чи sectors не число
     inputOutStrContainer.appendChild(createNode('p', 'ФАТАЛЬНА ПОМИЛКА: значення секторів не є числовим', 'errorMessage'))
     fatalError = true
   }
@@ -134,6 +136,6 @@ function calcInputData() {
     inputOutStrContainer.appendChild(createNode('p', `Кількість секторів: ${sectors}, кількість хиж: ${huts}`))
     inputOutStrContainer.appendChild(createNode('p', `Номера секторів в яких знаходяться хижі: ${numberSectors}`))
     inputOutStrContainer.appendChild(createNode('button', 'Запустити програму', 'runButton'))
-    getNode('.runButton').onclick = runProgram
+    getNode('.runButton').onclick = runProgram // присвоєння функції при натисканні ЛКМ на тег кнопки
   }
 }

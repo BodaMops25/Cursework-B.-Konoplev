@@ -2,7 +2,7 @@
 
 // STATISTIC PROGRAM
 
-function runStatistic() {
+function runStatistic() { // створення таблиці й додавання її в хтмл документ
    getNode('.statisticTable') !== null ? getNode('.statisticTable').remove() : {}
    
    const table = createNode('table', `
@@ -25,7 +25,7 @@ function runStatistic() {
 
 // SORTING
 
-function sortFunc(e) {
+function sortFunc(e) { // функція сортування даних таблиці, e - об'єкт натискання ЛКМ
    
    let error = false
    
@@ -50,7 +50,7 @@ function sortFunc(e) {
 
 // CANVAS SECTORS AND TABLE ROW HIGHLIGHTS
 
-function highlightFunc(node) {
+function highlightFunc(node) { // виділення рядка таблиці й секторів
    node.style.backgroundColor = '#f2f2f2'
    
    highlightSector(+node.childNodes[1].innerText)
@@ -59,7 +59,7 @@ function highlightFunc(node) {
    console.log(2)
 }
 
-function outHighlightFunc(node) {
+function outHighlightFunc(node) { // зняття виділення рядка таблиці й секторів
    node.style.backgroundColor = '#ffffff'
    
    runCanvas()
