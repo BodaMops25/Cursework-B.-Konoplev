@@ -3,6 +3,7 @@
 body { 
   /* overflow: hidden; */
   overflow-x: hidden;
+  background-color: #fff;
 }
 
 /* MESSAGES STYLES */
